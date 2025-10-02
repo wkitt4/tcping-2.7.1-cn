@@ -214,7 +214,7 @@ func usage() {
 	executableName := os.Args[0]
 
 	colorLightCyan("\nTCPING 版本 %s\n\n", version)
-	colorRed("%s命令格式 :\n", executableName)
+	colorRed("%s 命令格式:\n", executableName)
 	colorRed("%s <主机名/ip> <端口号>  例如:\n", executableName)
 	colorRed("%s www.example.com 443\n", executableName)
 	colorYellow("\n[可选项]\n")

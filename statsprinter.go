@@ -93,7 +93,7 @@ func (p *colorPrinter) printStatistics(t tcping) {
 
 	/* uptime and downtime stats */
 	colorYellow("总运行时间: ")
-	colorGreen("  %s\n", durationToString(t.totalUptime))
+	colorGreen(" %s\n", durationToString(t.totalUptime))
 	colorYellow("总暂停时间: ")
 	colorRed("%s\n", durationToString(t.totalDowntime))
 
@@ -103,9 +103,9 @@ func (p *colorPrinter) printStatistics(t tcping) {
 
 		colorYellow("最长连续运行时间:   ")
 		colorGreen("%v ", uptime)
-		colorYellow("from ")
+		colorYellow("\n  从 ")
 		colorLightBlue("%v ", t.longestUptime.start.Format(timeFormat))
-		colorYellow("to ")
+		colorYellow("\n  到 ")
 		colorLightBlue("%v\n", t.longestUptime.end.Format(timeFormat))
 	}
 
@@ -115,9 +115,9 @@ func (p *colorPrinter) printStatistics(t tcping) {
 
 		colorYellow("最长连续暂停时间: ")
 		colorRed("%v ", downtime)
-		colorYellow("从 ")
+		colorYellow("\n  从 ")
 		colorLightBlue("%v ", t.longestDowntime.start.Format(timeFormat))
-		colorYellow("到 ")
+		colorYellow("\n  到 ")
 		colorLightBlue("%v\n", t.longestDowntime.end.Format(timeFormat))
 	}
 
@@ -175,29 +175,29 @@ func (p *colorPrinter) printProbeSuccess(sourceAddr string, userInput userInput,
 	if userInput.hostname == "" {
 		if timestamp == "" {
 			if userInput.showSourceAddress {
-				colorLightGreen("Reply 从 %s 端口 %d 使用 %s TCP_conn=%d 时间=%.1f ms\n", userInput.ip.String(), userInput.port, sourceAddr, streak, rtt)
+				colorLightGreen("响应自 %s 端口 %d 使用 %s TCP_conn=%d 时间=%.1f ms\n", userInput.ip.String(), userInput.port, sourceAddr, streak, rtt)
 			} else {
-				colorLightGreen("Reply 从 %s 端口 %d TCP_conn=%d 时间=%.1f ms\n", userInput.ip.String(), userInput.port, streak, rtt)
+				colorLightGreen("响应自 %s 端口 %d TCP_conn=%d 时间=%.1f ms\n", userInput.ip.String(), userInput.port, streak, rtt)
 			}
 		} else {
 			if userInput.showSourceAddress {
-				colorLightGreen("%s Reply 从 %s 端口 %d 使用 %s TCP_conn=%d 时间=%.1f ms\n", timestamp, userInput.ip.String(), userInput.port, sourceAddr, streak, rtt)
+				colorLightGreen("%s 响应自 %s 端口 %d 使用 %s TCP_conn=%d 时间=%.1f ms\n", timestamp, userInput.ip.String(), userInput.port, sourceAddr, streak, rtt)
 			} else {
-				colorLightGreen("%s Reply 从 %s 端口 %d TCP_conn=%d 时间=%.1f ms\n", timestamp, userInput.ip.String(), userInput.port, streak, rtt)
+				colorLightGreen("%s 响应自 %s 端口 %d TCP_conn=%d 时间=%.1f ms\n", timestamp, userInput.ip.String(), userInput.port, streak, rtt)
 			}
 		}
 	} else {
 		if timestamp == "" {
 			if userInput.showSourceAddress {
-				colorLightGreen("Reply 从 %s (%s) 端口 %d 使用 %s TCP_conn=%d 时间=%.1f ms\n", userInput.hostname, userInput.ip.String(), userInput.port, sourceAddr, streak, rtt)
+				colorLightGreen("响应自 %s (%s) 端口 %d 使用 %s TCP_conn=%d 时间=%.1f ms\n", userInput.hostname, userInput.ip.String(), userInput.port, sourceAddr, streak, rtt)
 			} else {
-				colorLightGreen("Reply 从 %s (%s) 端口 %d TCP_conn=%d 时间=%.1f ms\n", userInput.hostname, userInput.ip.String(), userInput.port, streak, rtt)
+				colorLightGreen("响应自 %s (%s) 端口 %d TCP_conn=%d 时间=%.1f ms\n", userInput.hostname, userInput.ip.String(), userInput.port, streak, rtt)
 			}
 		} else {
 			if userInput.showSourceAddress {
-				colorLightGreen("%s Reply 从 %s (%s) 端口 %d 使用 %s TCP_conn=%d 时间=%.1f ms\n", timestamp, userInput.hostname, userInput.ip.String(), userInput.port, sourceAddr, streak, rtt)
+				colorLightGreen("%s 响应自 %s (%s) 端口 %d 使用 %s TCP_conn=%d 时间=%.1f ms\n", timestamp, userInput.hostname, userInput.ip.String(), userInput.port, sourceAddr, streak, rtt)
 			} else {
-				colorLightGreen("%s Reply 从 %s (%s) 端口 %d TCP_conn=%d 时间=%.1f ms\n", timestamp, userInput.hostname, userInput.ip.String(), userInput.port, streak, rtt)
+				colorLightGreen("%s 响应自 %s (%s) 端口 %d TCP_conn=%d 时间=%.1f ms\n", timestamp, userInput.hostname, userInput.ip.String(), userInput.port, streak, rtt)
 			}
 		}
 	}
@@ -210,7 +210,7 @@ func (p *colorPrinter) printProbeFail(userInput userInput, streak uint) {
 	}
 	if userInput.hostname == "" {
 		if timestamp == "" {
-			colorRed("No reply 从 %s 端口 %d TCP_conn=%d\n", userInput.ip, userInput.port, streak)
+			colorRed("No 响应自 %s 端口 %d TCP_conn=%d\n", userInput.ip, userInput.port, streak)
 		} else {
 			colorRed("%s 未收到来自 %s 端口 %d 的响应 TCP_conn=%d\n", timestamp, userInput.ip, userInput.port, streak)
 		}
@@ -378,7 +378,7 @@ func (p *plainPrinter) printProbeSuccess(sourceAddr string, userInput userInput,
 			}
 		} else {
 			if userInput.showSourceAddress {
-				fmt.Printf("%s 回复 %s (%s) 端口 %d 使用 %s TCP_conn=%d 时间=%.3f ms\n", timestamp, userInput.hostname, userInput.ip.String(), userInput.port, sourceAddr, streak, rtt)	
+				fmt.Printf("%s 回复 %s (%s) 端口 %d 使用 %s TCP_conn=%d 时间=%.3f ms\n", timestamp, userInput.hostname, userInput.ip.String(), userInput.port, sourceAddr, streak, rtt)
 			} else {
 				fmt.Printf("%s 回复 %s (%s) 端口 %d TCP_conn=%d 时间=%.3f ms\n", timestamp, userInput.hostname, userInput.ip.String(), userInput.port, streak, rtt)
 			}
@@ -790,4 +790,3 @@ func durationToString(duration time.Duration) string {
 		return fmt.Sprintf("%s %.0f 秒", time.Now().Format(timeFormat), seconds)
 	}
 }
-
