@@ -77,7 +77,7 @@ func (p *colorPrinter) printStatistics(t tcping) {
 	colorYellow("失败探测包: ")
 	colorRed("%d\n", t.totalUnsuccessfulProbes)
 
-	colorYellow("最后一次成功探测:   ")
+	colorYellow("最后一次成功探测: ")
 	if t.lastSuccessfulProbe.IsZero() {
 		colorRed("从未成功\n")
 	} else {
@@ -93,7 +93,7 @@ func (p *colorPrinter) printStatistics(t tcping) {
 
 	/* uptime and downtime stats */
 	colorYellow("总运行时间: ")
-	colorGreen(" %s\n", durationToString(t.totalUptime))
+	colorGreen("%s\n", durationToString(t.totalUptime))
 	colorYellow("总暂停时间: ")
 	colorRed("%s\n", durationToString(t.totalDowntime))
 
@@ -142,17 +142,17 @@ func (p *colorPrinter) printStatistics(t tcping) {
 
 	if t.rttResults.hasResults {
 		colorYellow("rtt ")
-		colorGreen("min")
-		colorYellow("/")
-		colorCyan("avg")
-		colorYellow("/")
-		colorRed("max: ")
-		colorGreen("%.1f", t.rttResults.min)
-		colorYellow("/")
+		colorGreen("最低")
+		colorYellow("   ")
+		colorCyan("平均")
+		colorYellow("   ")
+		colorRed("最高: ")
+		colorGreen("\n    %.1f", t.rttResults.min)
+		colorYellow("   ")
 		colorCyan("%.1f", t.rttResults.average)
-		colorYellow("/")
+		colorYellow("   ")
 		colorRed("%.1f", t.rttResults.max)
-		colorYellow(" ms\n")
+		colorYellow(" 毫秒\n")
 	}
 
 	colorYellow("--------------------------------------\n")
@@ -160,11 +160,11 @@ func (p *colorPrinter) printStatistics(t tcping) {
 
 	/* If the program was not terminated, no need to show the end time */
 	if !t.endTime.IsZero() {
-		colorYellow("TCPing 结束时间:   %v\n", t.endTime.Format(timeFormat))
+		colorYellow("TCPing 结束时间: %v\n", t.endTime.Format(timeFormat))
 	}
 
 	durationTime := time.Time{}.Add(t.totalDowntime + t.totalUptime)
-	colorYellow("持续时间 (HH:MM:SS): %v\n\n", durationTime.Format(hourFormat))
+	colorYellow("持续时间: %v\n\n", durationTime.Format(hourFormat))
 }
 
 func (p *colorPrinter) printProbeSuccess(sourceAddr string, userInput userInput, streak uint, rtt float32) {
@@ -304,7 +304,7 @@ func (p *plainPrinter) printStatistics(t tcping) {
 	if t.longestUptime.duration != 0 {
 		uptime := durationToString(t.longestUptime.duration)
 
-		fmt.Printf("最长连续运行时间:   ")
+		fmt.Printf("最长连续运行时间: ")
 		fmt.Printf("%v ", uptime)
 		fmt.Printf("从 %v ", t.longestUptime.start.Format(timeFormat))
 		fmt.Printf("到 %v\n", t.longestUptime.end.Format(timeFormat))
